@@ -19,17 +19,19 @@ namespace MovieAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Movie>>> GetAllMovies()
         {
-            var sql = @"SELECT m.*, cr.*
+            var sql = @"SELECT m.*, g.*, ar.*
                 FROM Movie m 
-                INNER JOIN CriticReview cr ON m.criticReviews = c.Id";
+                INNER JOIN Genre g ON m.genreid = g.id
+                INNER JOIN AudienceRating ar ON m.audienceRatingid = ar.id";
 
-            // Fetch all trails from database. <Table 1, Table 2, Output>
-            var movies = await _db.QueryAsync<Movie, CriticReview, Movie>(
+            // Fetch all trails from database. <Table 1, Table 2, Table 3, Output>
+            var movies = await _db.QueryAsync<Movie, Genre, AudienceRating, Movie>(
                 sql,
-                (movies, genres, ) =>
+                (movie, genre, audienceRating) =>
                 {
-                    trail.Category = category;
-                    return trail;
+                    movie.genre = genre;
+                    movie.audienceRating = audienceRating;
+                    return movie;
                 });
             return Ok(movies);
         }
