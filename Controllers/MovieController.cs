@@ -1,5 +1,6 @@
 using Dapper;
 using Microsoft.AspNetCore.Mvc;
+using MovieAPI.DTO;
 using System.Data;
 
 namespace MovieAPI.Controllers
@@ -18,9 +19,18 @@ namespace MovieAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Movie>>> GetAllMovies()
         {
-            var movies = await _db.QueryAsync<Movie>(
-                "SELECT * FROM Movie");
+            var sql = @"SELECT m.*, cr.*
+                FROM Movie m 
+                INNER JOIN CriticReview cr ON m.criticReviews = c.Id";
 
+            // Fetch all trails from database. <Table 1, Table 2, Output>
+            var movies = await _db.QueryAsync<Movie, CriticReview, Movie>(
+                sql,
+                (movies, genres, ) =>
+                {
+                    trail.Category = category;
+                    return trail;
+                });
             return Ok(movies);
         }
 
