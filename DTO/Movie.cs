@@ -5,9 +5,7 @@ namespace MovieAPI.DTO
     public class Movie
     {
         public int id { get; set; }
-        public int genreid { get; set; }
 
-        public int audienceRatingid { get; set; }
 
         //Navigation propertys
         public Genre genre { get; set; } = null!;
