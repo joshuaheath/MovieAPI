@@ -5,7 +5,7 @@
         public int id {  get; set; }
 
         //FK
-        public Movie movieId { get; set; } = null!;
+        public int movieId { get; set; }
 
         public string description { get; set; } = string.Empty;
 

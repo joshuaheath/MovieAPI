@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MovieAPI.DTO;
 using System.Data;
 
+
 namespace MovieAPI.Controllers
 {
     [ApiController]
@@ -41,7 +42,6 @@ namespace MovieAPI.Controllers
         [HttpGet("{id:int}")]
         public async Task<ActionResult<IEnumerable<Movie>>> GetMovieById(int id)
         {
-            string name = "{id}";
             var sql = @"SELECT m.*, g.*, ar.*, cr.*, us.*
                 FROM Movie m 
                 INNER JOIN Genre g ON m.genreid = g.id
