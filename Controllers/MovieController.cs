@@ -68,8 +68,11 @@ namespace MovieAPI.Controllers
 
                     if(cr != null)
                     {
-                        cr.user = us;
-                        movie.reviews.Add(cr);
+                        if (cr.isPublished)
+                        {
+                            cr.user = us;
+                            movie.reviews.Add(cr);
+                        }
                     }
 
                     return movie;
