@@ -17,6 +17,7 @@ namespace MovieAPI.DTO
         public string imageUrl { get; set; }
 
         public DateOnly releaseDate { get; set; }
+        public List<CriticReview> reviews { get; set; } = null!;
 
     }
 }

@@ -5,7 +5,7 @@
         public int id {  get; set; }
 
         //FK
-        public Movie movie { get; set; } = null!;
+        public Movie movieId { get; set; } = null!;
 
         public string description { get; set; } = string.Empty;
 
@@ -16,5 +16,6 @@
         public string createdBy { get; set; } = string.Empty;
 
         public DateTime createdDate { get; set; } = DateTime.Now;
+        public UserSnaphot user { get; set; } = null!;
     }
 }
