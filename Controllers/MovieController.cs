@@ -18,7 +18,7 @@ namespace MovieAPI.Controllers
 
         // GET/api/movies
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Movie>>> GetAllMovies()
+        public async Task<ActionResult<IEnumerable<MovieListItem>>> GetAllMovies()
         {
             var sql = @"SELECT m.*, g.*, ar.*
                 FROM Movie m 
@@ -34,7 +34,18 @@ namespace MovieAPI.Controllers
                     movie.audienceRating = audienceRating;
                     return movie;
                 });
-            return Ok(movies);
+            var result = movies.Select(movie => new MovieListItem
+            {
+                id = movie.id,
+                genre = movie.genre,
+                audienceRating = movie.audienceRating,
+                title = movie.title,
+                runtimeMin = movie.runtimeMin,
+                synopsis = movie.synopsis,
+                imageUrl = movie.imageUrl,
+                releaseDate = movie.releaseDate
+            });
+            return Ok(result);
         }
 
 
